@@ -8,16 +8,20 @@
   <title>Лис и Лист — сказки, где ваш ребёнок главный герой</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <script src="book-order-v2.js" defer></script>
   <style>
-    .book-controls { display: grid; gap: .8rem; margin: 1rem 0; }
-    .book-controls label { display: block; margin-bottom: .3rem; font-weight: 650; }
-    .book-controls select { box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px; border: 1px solid #c6b99f; border-radius: 8px; background: #fffaf0; color: #223d30; padding: .5rem; font: inherit; font-size: 16px; }
-    .tariff-scroll { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
-    .tariff-scroll table { min-width: 33rem; }
-    .tariff-scroll th[scope="row"] { text-align: left; }
-    .tariff-scroll th small { display: block; font-weight: normal; }
-    .tariff-scroll td { white-space: nowrap; }
+    .book-controls { display: grid; gap: .9rem; margin: 1rem 0; }
+    .book-controls .segments label { max-width: none; }
+    .book-controls .segments label span { display: grid; place-items: center; padding: 8px 4px; }
+    .book-controls .segments input:checked + span { background: #dce8d8; border-color: #425f49; }
+    .book-controls .segments { gap: 6px; }
+    .book-controls .segments span { min-height: 44px; }
+    #price-table { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+    #price-table h3 { margin-bottom: .55rem; }
+    #price-table table { width: 100%; max-width: none; table-layout: fixed; font-variant-numeric: tabular-nums; }
+    #price-table th, #price-table td { padding: .56rem .2rem; font-size: clamp(.72rem, 2.5vw, 1rem); }
+    #price-table td { white-space: nowrap; }
+    #price-table thead tr:first-child th:last-child { background: #e6dcc8; }
+    #price-table tbody tr:nth-child(even) { background: #f7f1e6; }
     .price-help { margin: .5rem 0; }
     .order-price-line { display: block; margin-top: .3rem; font-weight: 700; }
   </style>
@@ -143,21 +147,39 @@
           <div class="calculator-controls">
             <p class="eyebrow">КАЛЬКУЛЯТОР</p>
             <h3>Сколько будет стоить?</h3>
-<div class="book-controls">
-      <div><label for="calc-edition">Издание</label>
-        <select id="calc-edition"><option value="pdf">Электронная книга (PDF)</option><option value="print">Печатная книга</option></select>
-      </div>
-      <div><label for="calc-book">Размер книги</label>
-        <select id="calc-book"><option value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм">А5</option>
-<option value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм">А4</option></select>
-      </div>
-      <div><label for="calc-orientation">Ориентация</label>
-        <select id="calc-orientation"><option value="landscape">Альбомная</option><option value="portrait">Книжная</option></select>
-      </div>
-      <div><label for="calc-count">Страниц сказки без обложки</label>
-        <select id="calc-count"><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option></select>
-      </div>
-    </div>
+            <div class="book-controls">
+              <fieldset class="option-group">
+                <legend>Издание</legend>
+                <div class="segments">
+                  <label><input type="radio" name="calc-edition" value="pdf" data-label="Электронная книга (PDF)" checked><span>PDF</span></label>
+                  <label><input type="radio" name="calc-edition" value="print" data-label="Печатная книга"><span>Печать</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="option-group">
+                <legend>Размер книги</legend>
+                <div class="segments">
+                  <label><input type="radio" name="calc-book" value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм" checked><span>А5</span></label>
+                  <label><input type="radio" name="calc-book" value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм"><span>А4</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="option-group">
+                <legend>Ориентация</legend>
+                <div class="segments">
+                  <label><input type="radio" name="calc-orientation" value="landscape" data-label="Альбомная" checked><span>Альбомная</span></label>
+                  <label><input type="radio" name="calc-orientation" value="portrait" data-label="Книжная"><span>Книжная</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="option-group">
+                <legend>Страниц сказки без обложки</legend>
+                <div class="segments">
+                  <label><input type="radio" name="calc-count" value="8" data-label="8" checked><span>8</span></label>
+                  <label><input type="radio" name="calc-count" value="10" data-label="10"><span>10</span></label>
+                  <label><input type="radio" name="calc-count" value="12" data-label="12"><span>12</span></label>
+                  <label><input type="radio" name="calc-count" value="14" data-label="14"><span>14</span></label>
+                  <label><input type="radio" name="calc-count" value="16" data-label="16"><span>16</span></label>
+                </div>
+              </fieldset>
+            </div>
           </div>
           <aside class="calculator-result" aria-label="Результат расчёта">
             <svg class="result-star" aria-hidden="true"><use href="#sparkle"/></svg>
@@ -172,29 +194,28 @@
         </div>
         <noscript><p class="noscript">Для калькулятора и формы включите JavaScript. Цены можно посмотреть в таблице, а заявку отправить на <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>.</p></noscript>
 
-        <div class="pricing-details">
-          <details id="price-table">
-            <summary>Прайс по форматам и количеству страниц</summary>
-            <div class="details-body">
-              <p class="price-help">В колонках указано количество страниц сказки без обложки. Книжная и альбомная ориентации стоят одинаково. Печатная цена указана за один экземпляр. Доставка рассчитывается отдельно.</p>
-              <div class="tariff-scroll" tabindex="0" role="region" aria-label="Электронная книга (PDF)">
-      <table data-edition="pdf">
-        <caption>Электронная книга (PDF) · цены в ₽</caption>
-        <thead><tr><th scope="col">Формат</th><th scope="col">8</th><th scope="col">10</th><th scope="col">12</th><th scope="col">14</th><th scope="col">16</th></tr></thead>
-        <tbody><tr data-book="a5"><th scope="row">А5</th><td data-pages="8">1 300</td><td data-pages="10">1 500</td><td data-pages="12">1 700</td><td data-pages="14">1 900</td><td data-pages="16">2 100</td></tr><tr data-book="a4"><th scope="row">А4</th><td data-pages="8">1 500</td><td data-pages="10">1 750</td><td data-pages="12">2 000</td><td data-pages="14">2 250</td><td data-pages="16">2 500</td></tr></tbody>
-      </table>
-    </div>
-              <div class="tariff-scroll" tabindex="0" role="region" aria-label="Печатная книга в мягкой обложке">
-      <table data-edition="print">
-        <caption>Печатная книга в мягкой обложке · цены в ₽</caption>
-        <thead><tr><th scope="col">Формат</th><th scope="col">8</th><th scope="col">10</th><th scope="col">12</th><th scope="col">14</th><th scope="col">16</th></tr></thead>
-        <tbody><tr data-book="a5"><th scope="row">А5</th><td data-pages="8">2 500</td><td data-pages="10">2 850</td><td data-pages="12">3 200</td><td data-pages="14">3 550</td><td data-pages="16">3 900</td></tr><tr data-book="a4"><th scope="row">А4</th><td data-pages="8">3 200</td><td data-pages="10">3 650</td><td data-pages="12">4 100</td><td data-pages="14">4 550</td><td data-pages="16">5 000</td></tr></tbody>
-      </table>
-    </div>
-              <p class="price-help">При скреплении на скобу в книге на 10 или 14 страниц сказки могут появиться две пустые технические страницы.</p>
-            </div>
-          </details>
-        </div>
+        <section id="price-table" class="details-body" aria-labelledby="price-table-title">
+          <h3 id="price-table-title">Прайс на сказки</h3>
+          <table>
+            <caption>Цены в рублях. Указаны страницы сказки без обложки.</caption>
+            <colgroup span="1"></colgroup>
+            <colgroup span="2"></colgroup>
+            <colgroup span="2"></colgroup>
+            <thead>
+              <tr><th rowspan="2" scope="col">Страниц</th><th colspan="2" scope="colgroup">PDF</th><th colspan="2" scope="colgroup">Печать</th></tr>
+              <tr><th scope="col">А5</th><th scope="col">А4</th><th scope="col">А5</th><th scope="col">А4</th></tr>
+            </thead>
+            <tbody>
+                <tr data-pages="8"><th scope="row">8</th><td data-edition="pdf" data-book="a5">1 300</td><td data-edition="pdf" data-book="a4">1 500</td><td data-edition="print" data-book="a5">2 500</td><td data-edition="print" data-book="a4">3 200</td></tr>
+                <tr data-pages="10"><th scope="row">10</th><td data-edition="pdf" data-book="a5">1 500</td><td data-edition="pdf" data-book="a4">1 750</td><td data-edition="print" data-book="a5">2 850</td><td data-edition="print" data-book="a4">3 650</td></tr>
+                <tr data-pages="12"><th scope="row">12</th><td data-edition="pdf" data-book="a5">1 700</td><td data-edition="pdf" data-book="a4">2 000</td><td data-edition="print" data-book="a5">3 200</td><td data-edition="print" data-book="a4">4 100</td></tr>
+                <tr data-pages="14"><th scope="row">14</th><td data-edition="pdf" data-book="a5">1 900</td><td data-edition="pdf" data-book="a4">2 250</td><td data-edition="print" data-book="a5">3 550</td><td data-edition="print" data-book="a4">4 550</td></tr>
+                <tr data-pages="16"><th scope="row">16</th><td data-edition="pdf" data-book="a5">2 100</td><td data-edition="pdf" data-book="a4">2 500</td><td data-edition="print" data-book="a5">3 900</td><td data-edition="print" data-book="a4">5 000</td></tr>
+            </tbody>
+          </table>
+          <p class="price-help">Цена одинакова для книжной и альбомной ориентации. Печать указана за один экземпляр в мягкой обложке. Доставка рассчитывается отдельно.</p>
+          <p class="price-help">При скреплении на скобу в книге на 10 или 14 страниц сказки могут появиться две пустые технические страницы.</p>
+        </section>
       </div>
     </section>
 
@@ -209,21 +230,39 @@
         </div>
         <form id="order-form" class="order-form" method="post">
           <h3>Заявка на сказку</h3>
-<div class="book-controls">
-      <div><label for="form-edition">Издание</label>
-        <select id="form-edition"><option value="pdf">Электронная книга (PDF)</option><option value="print">Печатная книга</option></select>
-      </div>
-      <div><label for="form-book">Размер книги</label>
-        <select id="form-book"><option value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм">А5</option>
-<option value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм">А4</option></select>
-      </div>
-      <div><label for="form-orientation">Ориентация</label>
-        <select id="form-orientation"><option value="landscape">Альбомная</option><option value="portrait">Книжная</option></select>
-      </div>
-      <div><label for="form-count">Страниц сказки без обложки</label>
-        <select id="form-count"><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option></select>
-      </div>
-    </div>
+          <div class="book-controls">
+            <fieldset class="option-group">
+              <legend>Издание</legend>
+              <div class="segments">
+                <label><input type="radio" name="form-edition" value="pdf" data-label="Электронная книга (PDF)" checked><span>PDF</span></label>
+                <label><input type="radio" name="form-edition" value="print" data-label="Печатная книга"><span>Печать</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="option-group">
+              <legend>Размер книги</legend>
+              <div class="segments">
+                <label><input type="radio" name="form-book" value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм" checked><span>А5</span></label>
+                <label><input type="radio" name="form-book" value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм"><span>А4</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="option-group">
+              <legend>Ориентация</legend>
+              <div class="segments">
+                <label><input type="radio" name="form-orientation" value="landscape" data-label="Альбомная" checked><span>Альбомная</span></label>
+                <label><input type="radio" name="form-orientation" value="portrait" data-label="Книжная"><span>Книжная</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="option-group">
+              <legend>Страниц сказки без обложки</legend>
+              <div class="segments">
+                <label><input type="radio" name="form-count" value="8" data-label="8" checked><span>8</span></label>
+                <label><input type="radio" name="form-count" value="10" data-label="10"><span>10</span></label>
+                <label><input type="radio" name="form-count" value="12" data-label="12"><span>12</span></label>
+                <label><input type="radio" name="form-count" value="14" data-label="14"><span>14</span></label>
+                <label><input type="radio" name="form-count" value="16" data-label="16"><span>16</span></label>
+              </div>
+            </fieldset>
+          </div>
           <p id="order-summary" class="order-summary" aria-live="polite" aria-atomic="true">
             <span id="order-configuration">Электронная книга · А5 · Альбомная · 210 × 148 мм · 8 страниц</span>
             <strong id="order-total" class="order-price-line">Предварительная цена — 1 300 ₽</strong>
@@ -271,5 +310,209 @@
       <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>
     </div>
   </footer>
+<script>
+'use strict';
+
+const details = document.querySelector('#calc-details');
+const price = document.querySelector('#calc-price');
+const calcNote = document.querySelector('#calc-note');
+const orderForm = document.querySelector('#order-form');
+const orderConfiguration = document.querySelector('#order-configuration');
+const orderTotal = document.querySelector('#order-total');
+const orderPrintNote = document.querySelector('#order-print-note');
+const orderError = document.querySelector('#order-error');
+const submitButton = document.querySelector('#submit-order');
+const submitLabel = document.querySelector('#submit-label');
+// Вставь публичный ключ формы из кабинета FormToMail между кавычками.
+const FORMTOMAIL_PUBLIC_KEY = '0CN5NGqsf0zlz6tv';
+
+const formKey = FORMTOMAIL_PUBLIC_KEY.trim();
+const onlineForm = Boolean(formKey);
+const orderAddress = 'games.tema@mail.ru';
+let sending = false;
+
+const orderSuccess = document.createElement('p');
+orderSuccess.setAttribute('role', 'status');
+orderError.after(orderSuccess);
+
+if (onlineForm) {
+  submitLabel.textContent = 'Отправить заявку';
+  document.querySelector('#data-note').textContent = 'Контакт, пожелания и параметры книги передаются через FormToMail, чтобы мастерская могла ответить на заявку. Фото и данные ребёнка обсудим позже.';
+}
+
+const numberFormat = new Intl.NumberFormat('ru-RU');
+
+const fields = ['edition', 'book', 'orientation', 'count'];
+const inputs = Object.fromEntries(fields.map((field) => [
+  field,
+  ['calc', 'form'].map((scope) => [...document.querySelectorAll('input[name="' + scope + '-' + field + '"]')]),
+]));
+const tariffs = new Map();
+document.querySelectorAll('#price-table tr[data-pages]').forEach((row) => {
+  row.querySelectorAll('td[data-edition]').forEach((cell) => {
+    const key = [cell.dataset.edition, cell.dataset.book, row.dataset.pages].join('/');
+    tariffs.set(key, Number(cell.textContent.replace(/\s/g, '')));
+  });
+});
+
+function readOrder() {
+  const selected = (field) => inputs[field][0].find((option) => option.checked);
+  const edition = selected('edition');
+  const book = selected('book');
+  const direction = selected('orientation');
+  const pages = selected('count').value;
+  return {
+    edition: edition.dataset.label,
+    printed: edition.value === 'print',
+    label: book.dataset.label,
+    dimensions: book.dataset[direction.value],
+    orientation: direction.dataset.label,
+    pages,
+    tariff: tariffs.get([edition.value, book.value, pages].join('/')),
+  };
+}
+
+function updateEstimate() {
+  const { edition, printed, label, dimensions, orientation, pages, tariff } = readOrder();
+  const configuration = [edition, label, orientation, dimensions, pages + ' страниц'].join(' · ');
+  const formatted = Number.isFinite(tariff) ? numberFormat.format(tariff) + ' ₽' : '—';
+  details.textContent = configuration;
+  price.textContent = formatted;
+  orderConfiguration.textContent = configuration;
+  orderTotal.textContent = 'Предварительная цена — ' + formatted;
+  calcNote.textContent = printed
+    ? 'Предварительная цена за один экземпляр. Доставка рассчитывается отдельно.'
+    : 'Предварительная цена. Подтвердим её, когда обсудим ваш сюжет.';
+  orderPrintNote.hidden = !printed;
+  orderPrintNote.textContent = ['10', '14'].includes(pages)
+    ? 'Доставка рассчитывается отдельно. При скреплении на скобу возможны две пустые технические страницы.'
+    : 'Доставка рассчитывается отдельно.';
+  submitButton.disabled = sending || !Number.isFinite(tariff);
+}
+
+function setChoice(group, value) {
+  group.forEach((option) => { option.checked = option.value === value; });
+}
+
+Object.values(inputs).forEach(([calculator, form]) => {
+  [...calculator, ...form].forEach((option) => {
+    option.addEventListener('change', () => {
+      if (!option.checked) return;
+      setChoice(calculator, option.value);
+      setChoice(form, option.value);
+      orderSuccess.textContent = '';
+      orderError.hidden = true;
+      updateEstimate();
+    });
+  });
+});
+
+function escapeHtml(value) {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\r?\n/g, '<br>');
+}
+
+function openEmail(fields) {
+  const lines = fields.map(([label, value]) => label + ': ' + value);
+  const subject = encodeURIComponent('Лис и Лист — новая заявка на сказку');
+  const body = encodeURIComponent(lines.join('\r\n'));
+  location.href = 'mailto:' + orderAddress + '?subject=' + subject + '&body=' + body;
+}
+
+orderForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  if (sending) return;
+
+  updateEstimate();
+  const order = readOrder();
+  if (!Number.isFinite(order.tariff)) return;
+
+  const data = new FormData(orderForm);
+  const fields = [
+    ['Имя', data.get('name')],
+    ['Почта для ответа', data.get('email')],
+    ['Издание', order.edition],
+    ['Формат книги', order.label],
+    ['Размер', order.dimensions],
+    ['Ориентация', order.orientation],
+    ['Страниц сказки без обложки', order.pages],
+    ['Предварительная цена', numberFormat.format(order.tariff) + ' ₽'],
+    ['Пожелания', data.get('message')],
+  ].map(([label, value]) => [label, String(value ?? '').trim()]).filter(([, value]) => value);
+  orderError.hidden = true;
+  orderSuccess.textContent = '';
+
+  if (!onlineForm) {
+    openEmail(fields);
+    return;
+  }
+
+  sending = true;
+  submitButton.disabled = true;
+  submitLabel.textContent = 'Отправляем…';
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  try {
+    const response = await fetch('https://api.formtomail.ru/send', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + formKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: 'Лис и Лист — новая заявка на сказку',
+        body: Object.fromEntries(fields.map(([label, value]) => [label, escapeHtml(value)])),
+      }),
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error('Сервис вернул код ' + response.status);
+    const result = await response.json();
+    if (result.statusCode !== 200) throw new Error('Сервис не подтвердил отправку');
+    for (const name of ['name', 'email', 'message']) {
+      const field = orderForm.elements.namedItem(name);
+      if (field.value === data.get(name)) field.value = '';
+    }
+    const consent = orderForm.querySelector('#contact-consent');
+    consent.checked = false;
+    orderSuccess.textContent = 'Заявка отправлена. Ответим на указанную почту.';
+  } catch {
+    orderError.textContent = 'Отправка не подтверждена. Проверьте соединение и попробуйте ещё раз.';
+    orderError.hidden = false;
+  } finally {
+    clearTimeout(timer);
+    sending = false;
+    updateEstimate();
+    submitLabel.textContent = 'Отправить заявку';
+  }
+});
+
+window.addEventListener('pageshow', () => {
+  Object.values(inputs).forEach(([calculator, form]) => {
+    const selected = calculator.find((option) => option.checked);
+    setChoice(form, selected.value);
+  });
+  updateEstimate();
+});
+updateEstimate();
+
+const dialog = document.querySelector('#story-dialog');
+const dialogImage = document.querySelector('#story-dialog-image');
+const dialogTitle = document.querySelector('#story-dialog-title');
+
+document.querySelectorAll('.story-image').forEach((button) => {
+  button.addEventListener('click', () => {
+    const image = button.querySelector('img');
+    dialogImage.src = image.currentSrc || image.src;
+    dialogImage.alt = image.alt;
+    dialogTitle.textContent = button.closest('figure').querySelector('h3').textContent;
+    dialog.showModal();
+  });
+});
+dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', (event) => {
+  if (event.target === dialog) dialog.close();
+});
+</script>
 </body>
 </html>
