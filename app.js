@@ -10,20 +10,21 @@ const orderForm = document.querySelector('#order-form');
 const orderSummary = document.querySelector('#order-summary');
 const orderError = document.querySelector('#order-error');
 const submitButton = document.querySelector('#submit-order');
-const emailButton = document.querySelector('#email-order');
 const submitLabel = document.querySelector('#submit-label');
-const formEndpoint = orderForm.dataset.endpoint.trim();
-const onlineForm = /^https:\/\/api\.tuqo\.ru\/f\/[\w-]+\/?$/.test(formEndpoint);
-const formShownAt = Date.now();
+
+const FORMTOMAIL_PUBLIC_KEY = '0CN5NGqsf0zlz6tv';
+const formKey = FORMTOMAIL_PUBLIC_KEY.trim();
+const onlineForm = Boolean(formKey);
 const orderAddress = 'games.tema@mail.ru';
 let sending = false;
-let lastPayload = '';
-let requestId = '';
+
+const orderSuccess = document.createElement('p');
+orderSuccess.setAttribute('role', 'status');
+orderError.after(orderSuccess);
 
 if (onlineForm) {
-  emailButton.hidden = false;
   submitLabel.textContent = 'Отправить заявку';
-  document.querySelector('#data-note').textContent = 'При отправке с сайта контакт, пожелания и параметры книги передаются через Tuqo. Уведомление приходит на ' + orderAddress + '. В пожеланиях достаточно указать тему сказки. Фото и данные ребёнка обсудим позже.';
+  document.querySelector('#data-note').textContent = 'Контакт, пожелания и параметры книги передаются через FormToMail, чтобы мастерская могла ответить на заявку. Фото и данные ребёнка обсудим позже.';
 }
 
 const numberFormat = new Intl.NumberFormat('ru-RU');
@@ -72,7 +73,6 @@ function updateEstimate() {
   pageInput.setAttribute('aria-invalid', String(!valid));
   useEstimate.setAttribute('aria-disabled', String(!valid));
   submitButton.disabled = !valid || sending;
-  emailButton.disabled = !valid;
   orderError.hidden = valid;
   orderError.textContent = valid ? '' : 'Укажите допустимое количество страниц в калькуляторе.';
 
@@ -120,19 +120,23 @@ useEstimate.addEventListener('click', (event) => {
   }
 });
 
-function openEmail(data) {
-  const fields = [
-    ['name', 'Имя'],
-    ['email', 'Почта для ответа'],
-    ['Формат', 'Формат'],
-    ['Размер', 'Размер'],
-    ['Страниц без обложки', 'Страниц без обложки'],
-    ['Предварительная цена', 'Предварительная цена'],
-    ['message', 'Пожелания'],
-  ];
-  const lines = fields
-    .filter(([name]) => data.get(name).trim())
-    .map(([name, label]) => label + ': ' + data.get(name).trim());
+const orderFields = [
+  ['name', 'Имя'],
+  ['email', 'Почта для ответа'],
+  ['Формат', 'Формат'],
+  ['Размер', 'Размер'],
+  ['Страниц без обложки', 'Страниц без обложки'],
+  ['Предварительная цена', 'Предварительная цена'],
+  ['message', 'Пожелания'],
+];
+
+function escapeHtml(value) {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/\r?\n/g, '<br>');
+}
+
+function openEmail(fields) {
+  const lines = fields.map(([label, value]) => label + ': ' + value);
   const subject = encodeURIComponent('Лис и Лист — новая заявка на сказку');
   const body = encodeURIComponent(lines.join('\r\n'));
   location.href = 'mailto:' + orderAddress + '?subject=' + subject + '&body=' + body;
@@ -145,25 +149,15 @@ orderForm.addEventListener('submit', async (event) => {
   updateEstimate();
   if (!pageInput.reportValidity()) return;
   const data = new FormData(orderForm);
+  const fields = orderFields.map(([name, label]) => [label, String(data.get(name) ?? '').trim()])
+    .filter(([, value]) => value);
+  orderSuccess.textContent = '';
 
   if (!onlineForm) {
-    openEmail(data);
+    openEmail(fields);
     return;
   }
 
-  if (Date.now() - formShownAt < 3200) {
-    orderError.textContent = 'Подождите несколько секунд и отправьте заявку снова.';
-    orderError.hidden = false;
-    return;
-  }
-
-  const payload = JSON.stringify(Object.fromEntries(data));
-  if (payload !== lastPayload) {
-    requestId = crypto.randomUUID();
-    lastPayload = payload;
-  }
-  data.set('_submit_time', String(formShownAt));
-  data.set('_request_id', requestId);
   sending = true;
   submitButton.disabled = true;
   submitLabel.textContent = 'Отправляем…';
@@ -171,38 +165,35 @@ orderForm.addEventListener('submit', async (event) => {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 12000);
   try {
-    const response = await fetch(formEndpoint, {
+    const response = await fetch('https://api.formtomail.ru/send', {
       method: 'POST',
-      body: new URLSearchParams(data),
+      headers: {
+        Authorization: 'Bearer ' + formKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: 'Лис и Лист — новая заявка на сказку',
+        body: Object.fromEntries(fields.map(([label, value]) => [label, escapeHtml(value)])),
+      }),
       signal: controller.signal,
     });
     if (!response.ok) throw new Error('Сервис вернул код ' + response.status);
-    location.assign(new URL('thanks.html', location.href));
+    const result = await response.json();
+    if (result.statusCode !== 200) throw new Error('Сервис не подтвердил отправку');
+    orderForm.reset();
+    orderSuccess.textContent = 'Заявка отправлена. Ответим на указанную почту.';
   } catch {
-    sending = false;
-    submitLabel.textContent = 'Отправить заявку';
-    updateEstimate();
-    orderError.textContent = 'Сайт не получил подтверждение. Попробуйте снова или отправьте заявку через почтовое приложение.';
+    orderError.textContent = 'Отправка не подтверждена. Проверьте соединение и попробуйте ещё раз.';
     orderError.hidden = false;
   } finally {
     clearTimeout(timer);
-  }
-});
-
-emailButton.addEventListener('click', () => {
-  updateEstimate();
-  if (pageInput.reportValidity() && orderForm.reportValidity()) {
-    openEmail(new FormData(orderForm));
-  }
-});
-
-window.addEventListener('pageshow', (event) => {
-  if (event.persisted && onlineForm) {
     sending = false;
+    submitButton.disabled = !pageInput.validity.valid;
     submitLabel.textContent = 'Отправить заявку';
   }
-  updateEstimate();
 });
+
+window.addEventListener('pageshow', updateEstimate);
 updateEstimate();
 
 const dialog = document.querySelector('#story-dialog');
