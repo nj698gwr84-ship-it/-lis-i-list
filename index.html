@@ -4,11 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f1e6">
-  <meta name="description" content="Персональная детская сказка по вашим фото. Ваш ребёнок и его близкие станут героями книги. Электронный PDF или печатная книга А5 и А4.">
+  <meta name="description" content="Персональная детская сказка по вашим фото. Ваш ребёнок и его близкие станут героями книги. Электронный PDF или печатная книга А5 или А4.">
   <title>Лис и Лист — сказки, где ваш ребёнок главный герой</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <script src="book-order-v2.js" defer></script>
+  <style>
+    .book-controls { display: grid; gap: .8rem; margin: 1rem 0; }
+    .book-controls label { display: block; margin-bottom: .3rem; font-weight: 650; }
+    .book-controls select { box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px; border: 1px solid #c6b99f; border-radius: 8px; background: #fffaf0; color: #223d30; padding: .5rem; font: inherit; font-size: 16px; }
+    .tariff-scroll { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
+    .tariff-scroll table { min-width: 33rem; }
+    .tariff-scroll th[scope="row"] { text-align: left; }
+    .tariff-scroll th small { display: block; font-weight: normal; }
+    .tariff-scroll td { white-space: nowrap; }
+    .price-help { margin: .5rem 0; }
+    .order-price-line { display: block; margin-top: .3rem; font-weight: 700; }
+  </style>
 </head>
 <body id="top">
   <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -131,27 +143,21 @@
           <div class="calculator-controls">
             <p class="eyebrow">КАЛЬКУЛЯТОР</p>
             <h3>Сколько будет стоить?</h3>
-            <fieldset class="option-group">
-              <legend>Формат</legend>
-              <div class="segments">
-                <label><input type="radio" name="edition" value="pdf" checked><span>Электронная</span></label>
-                <label><input type="radio" name="edition" value="print"><span>Печатная</span></label>
-              </div>
-            </fieldset>
-            <div class="calc-secondary">
-              <fieldset class="option-group">
-                <legend>Размер</legend>
-                <div class="segments sizes">
-                  <label><input type="radio" name="size" value="A5" checked><span>А5 <small>210 × 148 мм</small></span></label>
-                  <label><input type="radio" name="size" value="A4"><span>А4 <small>297 × 210 мм</small></span></label>
-                </div>
-              </fieldset>
-              <div class="page-field">
-                <label for="pages">Страниц без обложки</label>
-                <input id="pages" type="number" min="8" max="16" step="1" value="8" required inputmode="numeric" aria-describedby="pages-hint">
-                <p id="pages-hint">От 8 до 16 страниц</p>
-              </div>
-            </div>
+<div class="book-controls">
+      <div><label for="calc-edition">Издание</label>
+        <select id="calc-edition"><option value="pdf">Электронная книга (PDF)</option><option value="print">Печатная книга</option></select>
+      </div>
+      <div><label for="calc-book">Размер книги</label>
+        <select id="calc-book"><option value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм">А5</option>
+<option value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм">А4</option></select>
+      </div>
+      <div><label for="calc-orientation">Ориентация</label>
+        <select id="calc-orientation"><option value="landscape">Альбомная</option><option value="portrait">Книжная</option></select>
+      </div>
+      <div><label for="calc-count">Страниц сказки без обложки</label>
+        <select id="calc-count"><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option></select>
+      </div>
+    </div>
           </div>
           <aside class="calculator-result" aria-label="Результат расчёта">
             <svg class="result-star" aria-hidden="true"><use href="#sparkle"/></svg>
@@ -164,30 +170,28 @@
             <a id="use-estimate" class="button button-gold" href="#order">Оставить заявку <svg aria-hidden="true"><use href="#arrow"/></svg></a>
           </aside>
         </div>
-        <noscript><p class="noscript">Для калькулятора и формы включите JavaScript. Цены можно посмотреть в таблице, заявку отправить на <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>.</p></noscript>
+        <noscript><p class="noscript">Для калькулятора и формы включите JavaScript. Цены можно посмотреть в таблице, а заявку отправить на <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>.</p></noscript>
 
         <div class="pricing-details">
           <details id="price-table">
-            <summary>Прайс по размерам и страницам</summary>
+            <summary>Прайс по форматам и количеству страниц</summary>
             <div class="details-body">
-              <table>
-                <caption>Цена в рублях за книгу, доставка отдельно</caption>
-                <thead><tr><th scope="col">Страниц</th><th scope="col">PDF А5</th><th scope="col">PDF А4</th><th scope="col">Печать А5</th><th scope="col">Печать А4</th></tr></thead>
-                <tbody>
-                  <tr><th scope="row">8</th><td>1 300</td><td>1 500</td><td>2 500</td><td>3 200</td></tr>
-                  <tr><th scope="row">12</th><td>1 700</td><td>2 000</td><td>3 200</td><td>4 100</td></tr>
-                  <tr><th scope="row">16</th><td>2 100</td><td>2 500</td><td>3 900</td><td>5 000</td></tr>
-                </tbody>
-              </table>
-              <p>Для PDF можно выбрать любое количество страниц от 8 до 16. Цену для другого объёма согласуем отдельно.</p>
-            </div>
-          </details>
-          <details>
-            <summary>Как цены соотносятся с рынком</summary>
-            <div class="details-body market-note">
-              <p>В нашей выборке российских сервисов персональных сказок средняя заявленная цена PDF составила около <strong>1 160 ₽</strong> (8 предложений), а готовой печатной книги — около <strong>4 820 ₽</strong> (7 предложений). Сравнили базовые тарифы и цены «от». Форматы, объём, переплёт и доставка у сервисов различаются.</p>
-              <p>Прайс выше рассчитан для конкретных размеров и объёмов. Дата сравнения — 8 ноября 2026 г.</p>
-              <p class="sources"><a href="https://storybaby.ru/book-with-your-child">StoryBaby</a> · <a href="https://skazka-pro-menya.ru/">Сказка про меня</a> · <a href="https://xn--80aaukcnor7k.xn--p1ai/">Сказка Моя!</a> · <a href="https://xn--80afgjfdhc5atn.xn--p1ai/">Герой сказки</a> · <a href="https://skazcapro.ru/shop">СказкаПро</a> · <a href="https://vglavnoyroli.ru/skazka-po-foto">В главной роли</a> · <a href="https://skazka4you.ru/tariffs">Ребёнок — герой сказки</a> · <a href="https://skazum.ru/catalog">СказУм</a> · <a href="https://bukvuk.ru/">Буквук</a></p>
+              <p class="price-help">В колонках указано количество страниц сказки без обложки. Книжная и альбомная ориентации стоят одинаково. Печатная цена указана за один экземпляр. Доставка рассчитывается отдельно.</p>
+              <div class="tariff-scroll" tabindex="0" role="region" aria-label="Электронная книга (PDF)">
+      <table data-edition="pdf">
+        <caption>Электронная книга (PDF) · цены в ₽</caption>
+        <thead><tr><th scope="col">Формат</th><th scope="col">8</th><th scope="col">10</th><th scope="col">12</th><th scope="col">14</th><th scope="col">16</th></tr></thead>
+        <tbody><tr data-book="a5"><th scope="row">А5</th><td data-pages="8">1 300</td><td data-pages="10">1 500</td><td data-pages="12">1 700</td><td data-pages="14">1 900</td><td data-pages="16">2 100</td></tr><tr data-book="a4"><th scope="row">А4</th><td data-pages="8">1 500</td><td data-pages="10">1 750</td><td data-pages="12">2 000</td><td data-pages="14">2 250</td><td data-pages="16">2 500</td></tr></tbody>
+      </table>
+    </div>
+              <div class="tariff-scroll" tabindex="0" role="region" aria-label="Печатная книга в мягкой обложке">
+      <table data-edition="print">
+        <caption>Печатная книга в мягкой обложке · цены в ₽</caption>
+        <thead><tr><th scope="col">Формат</th><th scope="col">8</th><th scope="col">10</th><th scope="col">12</th><th scope="col">14</th><th scope="col">16</th></tr></thead>
+        <tbody><tr data-book="a5"><th scope="row">А5</th><td data-pages="8">2 500</td><td data-pages="10">2 850</td><td data-pages="12">3 200</td><td data-pages="14">3 550</td><td data-pages="16">3 900</td></tr><tr data-book="a4"><th scope="row">А4</th><td data-pages="8">3 200</td><td data-pages="10">3 650</td><td data-pages="12">4 100</td><td data-pages="14">4 550</td><td data-pages="16">5 000</td></tr></tbody>
+      </table>
+    </div>
+              <p class="price-help">При скреплении на скобу в книге на 10 или 14 страниц сказки могут появиться две пустые технические страницы.</p>
             </div>
           </details>
         </div>
@@ -203,14 +207,28 @@
           <div class="order-note"><svg aria-hidden="true"><use href="#mail"/></svg><span>Фото и данные ребёнка попросим позже, в переписке. Сейчас достаточно вашего контакта.</span></div>
           <p class="order-contact">Для связи <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a></p>
         </div>
-        <form id="order-form" class="order-form" method="post" data-endpoint="">
+        <form id="order-form" class="order-form" method="post">
           <h3>Заявка на сказку</h3>
-          <p id="order-summary" class="order-summary">PDF · А5 · 8 страниц · 1 300 ₽</p>
-          <a href="#prices" class="edit-estimate">Изменить параметры</a>
-          <input type="hidden" name="Формат" id="order-edition" value="Электронная книга (PDF)">
-          <input type="hidden" name="Размер" id="order-size" value="А5 (210 × 148 мм)">
-          <input type="hidden" name="Страниц без обложки" id="order-pages" value="8">
-          <input type="hidden" name="Предварительная цена" id="order-price" value="1 300 ₽">
+<div class="book-controls">
+      <div><label for="form-edition">Издание</label>
+        <select id="form-edition"><option value="pdf">Электронная книга (PDF)</option><option value="print">Печатная книга</option></select>
+      </div>
+      <div><label for="form-book">Размер книги</label>
+        <select id="form-book"><option value="a5" data-label="А5" data-portrait="148 × 210 мм" data-landscape="210 × 148 мм">А5</option>
+<option value="a4" data-label="А4" data-portrait="210 × 297 мм" data-landscape="297 × 210 мм">А4</option></select>
+      </div>
+      <div><label for="form-orientation">Ориентация</label>
+        <select id="form-orientation"><option value="landscape">Альбомная</option><option value="portrait">Книжная</option></select>
+      </div>
+      <div><label for="form-count">Страниц сказки без обложки</label>
+        <select id="form-count"><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16">16</option></select>
+      </div>
+    </div>
+          <p id="order-summary" class="order-summary" aria-live="polite" aria-atomic="true">
+            <span id="order-configuration">Электронная книга · А5 · Альбомная · 210 × 148 мм · 8 страниц</span>
+            <strong id="order-total" class="order-price-line">Предварительная цена — 1 300 ₽</strong>
+          </p>
+          <p id="order-print-note" class="price-help" hidden>Доставка рассчитывается отдельно.</p>
           <div class="order-fields">
             <label for="customer-name">Ваше имя <small>(по желанию)</small></label>
             <input id="customer-name" name="name" type="text" autocomplete="given-name" maxlength="70" placeholder="Например, Анна">
@@ -226,7 +244,6 @@
           </details>
           <p id="order-error" role="alert" hidden></p>
           <button id="submit-order" class="button button-primary submit-button" type="submit" disabled><span id="submit-label">Подготовить письмо</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
-          <button id="email-order" class="mail-fallback" type="button" hidden>Или написать через почтовое приложение</button>
         </form>
       </div>
     </section>
