@@ -173,9 +173,7 @@
                 <legend>Страниц сказки без обложки</legend>
                 <div class="segments">
                   <label><input type="radio" name="calc-count" value="8" data-label="8" checked><span>8</span></label>
-                  <label><input type="radio" name="calc-count" value="10" data-label="10"><span>10</span></label>
                   <label><input type="radio" name="calc-count" value="12" data-label="12"><span>12</span></label>
-                  <label><input type="radio" name="calc-count" value="14" data-label="14"><span>14</span></label>
                   <label><input type="radio" name="calc-count" value="16" data-label="16"><span>16</span></label>
                 </div>
               </fieldset>
@@ -207,14 +205,13 @@
             </thead>
             <tbody>
                 <tr data-pages="8"><th scope="row">8</th><td data-edition="pdf" data-book="a5">1 300</td><td data-edition="pdf" data-book="a4">1 500</td><td data-edition="print" data-book="a5">2 500</td><td data-edition="print" data-book="a4">3 200</td></tr>
-                <tr data-pages="10"><th scope="row">10</th><td data-edition="pdf" data-book="a5">1 500</td><td data-edition="pdf" data-book="a4">1 750</td><td data-edition="print" data-book="a5">2 850</td><td data-edition="print" data-book="a4">3 650</td></tr>
+
                 <tr data-pages="12"><th scope="row">12</th><td data-edition="pdf" data-book="a5">1 700</td><td data-edition="pdf" data-book="a4">2 000</td><td data-edition="print" data-book="a5">3 200</td><td data-edition="print" data-book="a4">4 100</td></tr>
-                <tr data-pages="14"><th scope="row">14</th><td data-edition="pdf" data-book="a5">1 900</td><td data-edition="pdf" data-book="a4">2 250</td><td data-edition="print" data-book="a5">3 550</td><td data-edition="print" data-book="a4">4 550</td></tr>
+
                 <tr data-pages="16"><th scope="row">16</th><td data-edition="pdf" data-book="a5">2 100</td><td data-edition="pdf" data-book="a4">2 500</td><td data-edition="print" data-book="a5">3 900</td><td data-edition="print" data-book="a4">5 000</td></tr>
             </tbody>
           </table>
           <p class="price-help">Цена одинакова для книжной и альбомной ориентации. Печать указана за один экземпляр в мягкой обложке. Доставка рассчитывается отдельно.</p>
-          <p class="price-help">При скреплении на скобу в книге на 10 или 14 страниц сказки могут появиться две пустые технические страницы.</p>
         </section>
       </div>
     </section>
@@ -256,9 +253,7 @@
               <legend>Страниц сказки без обложки</legend>
               <div class="segments">
                 <label><input type="radio" name="form-count" value="8" data-label="8" checked><span>8</span></label>
-                <label><input type="radio" name="form-count" value="10" data-label="10"><span>10</span></label>
                 <label><input type="radio" name="form-count" value="12" data-label="12"><span>12</span></label>
-                <label><input type="radio" name="form-count" value="14" data-label="14"><span>14</span></label>
                 <label><input type="radio" name="form-count" value="16" data-label="16"><span>16</span></label>
               </div>
             </fieldset>
@@ -384,9 +379,6 @@ function updateEstimate() {
     ? 'Предварительная цена за один экземпляр. Доставка рассчитывается отдельно.'
     : 'Предварительная цена. Подтвердим её, когда обсудим ваш сюжет.';
   orderPrintNote.hidden = !printed;
-  orderPrintNote.textContent = ['10', '14'].includes(pages)
-    ? 'Доставка рассчитывается отдельно. При скреплении на скобу возможны две пустые технические страницы.'
-    : 'Доставка рассчитывается отдельно.';
   submitButton.disabled = sending || !Number.isFinite(tariff);
 }
 
