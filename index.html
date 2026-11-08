@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f1e6">
+  <meta name="description" content="Персональная детская сказка по вашим фото. Ваш ребёнок и его близкие станут героями книги. Электронный PDF или печатная книга А5 и А4.">
+  <title>Лис и Лист — сказки, где ваш ребёнок главный герой</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body id="top">
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="sparkle" viewBox="0 0 24 24"><path d="M12 1c.9 7.5 3.5 10.1 11 11-7.5.9-10.1 3.5-11 11C11.1 15.5 8.5 12.9 1 12 8.5 11.1 11.1 8.5 12 1Z" fill="currentColor"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="tablet" viewBox="0 0 36 36"><rect x="8" y="3.5" width="20" height="29" rx="3"/><path d="M12 8.5h12v16H12zM17 28.5h2m-4.5-13 3.5 1.9 3.5-1.9m-3.5 1.9v4"/></symbol>
+    <symbol id="book" viewBox="0 0 36 36"><path d="M18 10c-5-4-10-4.4-15-3v20c6-1.4 10-.4 15 3 5-3.4 9-4.4 15-3V7c-5-1.4-10-1-15 3v20M7 12c3-.4 5 .1 7 1m-7 4c3-.4 5 .1 7 1m8-5c2-.9 4-1.4 7-1m-7 6c2-.9 4-1.4 7-1"/></symbol>
+    <symbol id="mail" viewBox="0 0 36 36"><rect x="3.5" y="8" width="29" height="20" rx="3"/><path d="m5 10 13 10 13-10"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">К содержанию</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Лис и Лист — в начало">
+        <img src="assets/mark.svg" width="42" height="42" alt="">
+        <span>Лис и Лист<small>МАСТЕРСКАЯ СКАЗОК</small></span>
+      </a>
+      <nav aria-label="Основное меню">
+        <a href="#examples">Примеры</a>
+        <a href="#process">Как заказать</a>
+        <a href="#prices">Цены</a>
+      </nav>
+      <a class="button button-outline header-cta" href="#order">Заказать сказку <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> ПЕРСОНАЛЬНЫЕ ДЕТСКИЕ КНИГИ</p>
+        <h1 id="hero-title">Однажды…<br>ваш ребёнок<br><em>стал героем.</em></h1>
+        <p class="hero-description">Придумаем сказку про вашего ребёнка и нарисуем героев по вашим фото. Мама, дедушка и даже любимый кот могут отправиться в приключение вместе с ним.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#prices">Рассчитать цену <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          <a class="text-link" href="#examples">Листать примеры</a>
+        </div>
+        <ul class="hero-promise" aria-label="Особенности">
+          <li>PDF или книга</li><li>Оплата после просмотра</li>
+        </ul>
+      </div>
+      <figure class="hero-art">
+        <img src="assets/hero.webp" width="1536" height="1024" fetchpriority="high" alt="Из раскрытой книги вырастает лес. Мальчик и лисёнок смотрят на огоньки в кроне волшебного дерева.">
+        <svg class="hero-sparkle" aria-hidden="true"><use href="#sparkle"/></svg>
+        <figcaption><svg aria-hidden="true"><use href="#sparkle"/></svg> Сказка начинается с вас</figcaption>
+      </figure>
+    </section>
+
+    <section class="examples section-pad" id="examples" aria-labelledby="examples-title">
+      <div class="wrap">
+        <div class="section-intro section-intro-split">
+          <div>
+            <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> ИЛЛЮСТРАЦИИ</p>
+            <h2 id="examples-title">Загляните в сказку</h2>
+          </div>
+          <p>Выберите настроение для своей книги. Мы можем взять за отправную точку любимую игрушку, семейную историю или выдуманный мир.</p>
+        </div>
+        <div class="gallery">
+          <figure class="story">
+            <button class="story-image" type="button" aria-label="Увеличить иллюстрацию «Тайна светящегося леса»">
+              <img src="assets/forest.webp" width="1200" height="800" loading="lazy" alt="Мальчик и лисёнок идут по тропинке среди грибов и цветов в залитом солнцем лесу.">
+              <span aria-hidden="true">↗</span>
+            </button>
+            <figcaption><p>01 / ЛЕСНОЕ ПРИКЛЮЧЕНИЕ</p><h3>Тайна светящегося леса</h3></figcaption>
+          </figure>
+          <figure class="story">
+            <button class="story-image" type="button" aria-label="Увеличить иллюстрацию «Путешествие в Страну сладостей»">
+              <img src="assets/sweets.webp" width="1200" height="800" loading="lazy" alt="Девочка в малиновой накидке несёт утёнка по вафельному мостику над мармеладной рекой.">
+              <span aria-hidden="true">↗</span>
+            </button>
+            <figcaption><p>02 / СЛАДКИЕ ЧУДЕСА</p><h3>Путешествие в Страну сладостей</h3></figcaption>
+          </figure>
+          <figure class="story">
+            <button class="story-image" type="button" aria-label="Увеличить иллюстрацию «Лодочка для звезды»">
+              <img src="assets/stars.webp" width="1200" height="800" loading="lazy" alt="Ребёнок и кролик плывут в золотой лодочке под луной и звёздами.">
+              <span aria-hidden="true">↗</span>
+            </button>
+            <figcaption><p>03 / СКАЗКА ПЕРЕД СНОМ</p><h3>Лодочка для звезды</h3></figcaption>
+          </figure>
+        </div>
+        <p class="gallery-note">Демонстрационные иллюстрации. У вашей книги будут свои герои и сюжет.</p>
+      </div>
+      <dialog id="story-dialog" class="story-dialog" aria-labelledby="story-dialog-title">
+        <button class="dialog-close" type="button" aria-label="Закрыть иллюстрацию" autofocus>×</button>
+        <img id="story-dialog-image" alt="">
+        <h3 id="story-dialog-title"></h3>
+      </dialog>
+    </section>
+
+    <section class="process section-pad" id="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <div class="section-intro centered">
+          <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> ОТ ИДЕИ ДО КНИГИ</p>
+          <h2 id="process-title">Как рождается ваша сказка</h2>
+          <p>Начнём с короткой заявки. Остальное обсудим в переписке.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="step-num">01</span><h3>Оставьте заявку</h3><p>Выберите формат, размер и объём. Мы ответим на почту и пришлём чек-лист с вопросами.</p></li>
+          <li><span class="step-num">02</span><h3>Расскажите о героях</h3><p>Имя и возраст ребёнка, его увлечения и кто появится в сказке. Для каждого героя понадобится минимум два фото.</p></li>
+          <li><span class="step-num">03</span><h3>Посмотрите макет</h3><p>Согласуем цену и срок, создадим книгу и пришлём скриншоты готовых страниц. Если всё устраивает, вы оплачиваете заказ.</p></li>
+          <li><span class="step-num">04</span><h3>Получите книгу</h3><p>Пришлём PDF или отправим печатную книгу. Сроки печати и доставки оговорим заранее.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="prices section-pad" id="prices" aria-labelledby="prices-title">
+      <div class="wrap">
+        <div class="section-intro section-intro-split">
+          <div>
+            <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> ФОРМАТЫ И СТОИМОСТЬ</p>
+            <h2 id="prices-title">Выберите свою книгу</h2>
+          </div>
+          <p>Электронную сказку удобно читать с экрана, а печатную можно подарить и поставить на полку.</p>
+        </div>
+        <div class="format-cards">
+          <article class="format-card"><span class="format-icon"><svg aria-hidden="true"><use href="#tablet"/></svg></span><div><h3>Электронная книга</h3><p>PDF для экрана и самостоятельной печати</p></div><strong>1 300–2 500 ₽</strong></article>
+          <article class="format-card"><span class="format-icon"><svg aria-hidden="true"><use href="#book"/></svg></span><div><h3>Печатная книга</h3><p>Один цветной экземпляр в мягкой обложке</p></div><strong>2 500–5 000 ₽</strong></article>
+        </div>
+
+        <div class="calculator">
+          <div class="calculator-controls">
+            <p class="eyebrow">КАЛЬКУЛЯТОР</p>
+            <h3>Сколько будет стоить?</h3>
+            <fieldset class="option-group">
+              <legend>Формат</legend>
+              <div class="segments">
+                <label><input type="radio" name="edition" value="pdf" checked><span>Электронная</span></label>
+                <label><input type="radio" name="edition" value="print"><span>Печатная</span></label>
+              </div>
+            </fieldset>
+            <div class="calc-secondary">
+              <fieldset class="option-group">
+                <legend>Размер</legend>
+                <div class="segments sizes">
+                  <label><input type="radio" name="size" value="A5" checked><span>А5 <small>210 × 148 мм</small></span></label>
+                  <label><input type="radio" name="size" value="A4"><span>А4 <small>297 × 210 мм</small></span></label>
+                </div>
+              </fieldset>
+              <div class="page-field">
+                <label for="pages">Страниц без обложки</label>
+                <input id="pages" type="number" min="8" max="16" step="1" value="8" required inputmode="numeric" aria-describedby="pages-hint">
+                <p id="pages-hint">От 8 до 16 страниц</p>
+              </div>
+            </div>
+          </div>
+          <aside class="calculator-result" aria-label="Результат расчёта">
+            <svg class="result-star" aria-hidden="true"><use href="#sparkle"/></svg>
+            <p class="eyebrow">ВАША СКАЗКА</p>
+            <div class="estimate" aria-live="polite" aria-atomic="true">
+              <p id="calc-details">PDF · А5 · 8 страниц</p>
+              <p id="calc-price">1 300 ₽</p>
+            </div>
+            <p id="calc-note">Предварительная цена. Подтвердим её, когда обсудим ваш сюжет.</p>
+            <a id="use-estimate" class="button button-gold" href="#order">Оставить заявку <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+          </aside>
+        </div>
+        <noscript><p class="noscript">Для калькулятора и формы включите JavaScript. Цены можно посмотреть в таблице, заявку отправить на <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>.</p></noscript>
+
+        <div class="pricing-details">
+          <details id="price-table">
+            <summary>Прайс по размерам и страницам</summary>
+            <div class="details-body">
+              <table>
+                <caption>Цена в рублях за книгу, доставка отдельно</caption>
+                <thead><tr><th scope="col">Страниц</th><th scope="col">PDF А5</th><th scope="col">PDF А4</th><th scope="col">Печать А5</th><th scope="col">Печать А4</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">8</th><td>1 300</td><td>1 500</td><td>2 500</td><td>3 200</td></tr>
+                  <tr><th scope="row">12</th><td>1 700</td><td>2 000</td><td>3 200</td><td>4 100</td></tr>
+                  <tr><th scope="row">16</th><td>2 100</td><td>2 500</td><td>3 900</td><td>5 000</td></tr>
+                </tbody>
+              </table>
+              <p>Для PDF можно выбрать любое количество страниц от 8 до 16. Цену для другого объёма согласуем отдельно.</p>
+            </div>
+          </details>
+          <details>
+            <summary>Как цены соотносятся с рынком</summary>
+            <div class="details-body market-note">
+              <p>В нашей выборке российских сервисов персональных сказок средняя заявленная цена PDF составила около <strong>1 160 ₽</strong> (8 предложений), а готовой печатной книги — около <strong>4 820 ₽</strong> (7 предложений). Сравнили базовые тарифы и цены «от». Форматы, объём, переплёт и доставка у сервисов различаются.</p>
+              <p>Прайс выше рассчитан для конкретных размеров и объёмов. Дата сравнения — 8 ноября 2026 г.</p>
+              <p class="sources"><a href="https://storybaby.ru/book-with-your-child">StoryBaby</a> · <a href="https://skazka-pro-menya.ru/">Сказка про меня</a> · <a href="https://xn--80aaukcnor7k.xn--p1ai/">Сказка Моя!</a> · <a href="https://xn--80afgjfdhc5atn.xn--p1ai/">Герой сказки</a> · <a href="https://skazcapro.ru/shop">СказкаПро</a> · <a href="https://vglavnoyroli.ru/skazka-po-foto">В главной роли</a> · <a href="https://skazka4you.ru/tariffs">Ребёнок — герой сказки</a> · <a href="https://skazum.ru/catalog">СказУм</a> · <a href="https://bukvuk.ru/">Буквук</a></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="order section-pad" id="order" aria-labelledby="order-title">
+      <div class="wrap order-grid">
+        <div class="order-copy">
+          <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> НАЧНЁМ С ЗАЯВКИ</p>
+          <h2 id="order-title">А о ком будет<br>ваша сказка?</h2>
+          <p>Оставьте почту. Мы свяжемся с вами, пришлём чек-лист про ребёнка и других героев и расскажем, какие фото подойдут.</p>
+          <div class="order-note"><svg aria-hidden="true"><use href="#mail"/></svg><span>Фото и данные ребёнка попросим позже, в переписке. Сейчас достаточно вашего контакта.</span></div>
+          <p class="order-contact">Для связи <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a></p>
+        </div>
+        <form id="order-form" class="order-form" method="post" data-endpoint="">
+          <h3>Заявка на сказку</h3>
+          <p id="order-summary" class="order-summary">PDF · А5 · 8 страниц · 1 300 ₽</p>
+          <a href="#prices" class="edit-estimate">Изменить параметры</a>
+          <input type="hidden" name="Формат" id="order-edition" value="Электронная книга (PDF)">
+          <input type="hidden" name="Размер" id="order-size" value="А5 (210 × 148 мм)">
+          <input type="hidden" name="Страниц без обложки" id="order-pages" value="8">
+          <input type="hidden" name="Предварительная цена" id="order-price" value="1 300 ₽">
+          <div class="order-fields">
+            <label for="customer-name">Ваше имя <small>(по желанию)</small></label>
+            <input id="customer-name" name="name" type="text" autocomplete="given-name" maxlength="70" placeholder="Например, Анна">
+            <label for="customer-email">Электронная почта</label>
+            <input id="customer-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@example.ru" required>
+            <label for="customer-message">Пожелания <small>(по желанию)</small></label>
+            <textarea id="customer-message" name="message" rows="3" maxlength="500" placeholder="Например, хотелось бы историю про космос."></textarea>
+          </div>
+          <label class="contact-consent"><input type="checkbox" id="contact-consent" name="Согласие на ответ" value="Да" required><span>Разрешаю использовать указанный контакт, чтобы ответить на заявку.</span></label>
+          <details id="form-info" class="form-info">
+            <summary>Как передаются данные</summary>
+            <p id="data-note">Кнопка откроет черновик в вашем почтовом приложении. Письмо с параметрами книги и вашим контактом вы отправите на games.tema@mail.ru. В пожеланиях достаточно указать тему сказки. Фото и данные ребёнка обсудим позже.</p>
+          </details>
+          <p id="order-error" role="alert" hidden></p>
+          <button id="submit-order" class="button button-primary submit-button" type="submit" disabled><span id="submit-label">Подготовить письмо</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+          <button id="email-order" class="mail-fallback" type="button" hidden>Или написать через почтовое приложение</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="faq section-pad" id="questions" aria-labelledby="questions-title">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle"/></svg> ПЕРЕД ЗАКАЗОМ</p>
+          <h2 id="questions-title">Частые вопросы</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>Какие фото понадобятся?</summary><p>Минимум два чётких снимка каждого героя при хорошем освещении. Лучше выбрать один портрет анфас и один снимок вполоборота. Отправите их, когда мы свяжемся с вами.</p></details>
+          <details><summary>Можно добавить семью и питомца?</summary><p>Да. В сказке могут появиться мама, папа, бабушка, тётя, друзья и питомцы. Укажите в чек-листе, кого вы хотите видеть и какие у них будут роли.</p></details>
+          <details><summary>Сколько времени займёт заказ?</summary><p>После чек-листа и фотографий согласуем срок создания книги. Для печатного заказа отдельно сообщим время на печать и доставку с учётом города.</p></details>
+          <details><summary>Когда нужно оплатить?</summary><p>Когда мы пришлём скриншоты готовых страниц и вы подтвердите, что всё устраивает. После оплаты отправим PDF или передадим книгу в печать.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top"><img src="assets/mark.svg" width="38" height="38" alt=""><span>Лис и Лист<small>МАСТЕРСКАЯ СКАЗОК</small></span></a>
+      <p>Персональные детские книги по вашим фотографиям.</p>
+      <a href="mailto:games.tema@mail.ru">games.tema@mail.ru</a>
+    </div>
+  </footer>
+</body>
+</html>
